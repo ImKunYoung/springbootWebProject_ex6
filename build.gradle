@@ -28,13 +28,11 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    /*mariadb jdbc driver setting*/
-    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client'
-    /*Thymeleaf 시간 처리*/
+    implementation group: 'org.mariadb.jdbc', name:'mariadb-java-client'
     implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time'
 
 }
 
-tasks.named('test') {
+test {
     useJUnitPlatform()
 }
