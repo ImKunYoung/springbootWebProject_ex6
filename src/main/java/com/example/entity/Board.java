@@ -20,6 +20,7 @@ public class Board extends BaseEntity {
 
     private String content; /*내용*/
 
+    /*연관 관계 지정*/
     @ManyToOne
     private Member writer; /*(게시물)작성자*/
 }
