@@ -2,10 +2,7 @@ package com.example.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Builder
@@ -23,5 +20,7 @@ public class Reply extends BaseEntity {
 
     private String replyer; /*작성자*/
 
-    // Board 장보는 나중에 처리
+    /*연관 관계 지정*/
+    @ManyToOne
+    private Board board; /*게시물 정보*/
 }
