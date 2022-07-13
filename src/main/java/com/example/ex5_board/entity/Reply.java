@@ -1,4 +1,4 @@
-package com.example.entity;
+package com.example.ex5_board.entity;
 
 import lombok.*;
 

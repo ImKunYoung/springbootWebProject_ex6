@@ -1,8 +1,7 @@
-package com.example.entity;
+package com.example.ex5_board.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
