@@ -2,10 +2,7 @@ package com.example.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Builder
@@ -23,5 +20,6 @@ public class Board extends BaseEntity {
 
     private String content; /*내용*/
 
-    // 작성자 추가할 것
+    @ManyToOne
+    private Member writer; /*(게시물)작성자*/
 }
