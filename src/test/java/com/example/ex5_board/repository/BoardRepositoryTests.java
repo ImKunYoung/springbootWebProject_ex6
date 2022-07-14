@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -50,6 +51,19 @@ public class BoardRepositoryTests {
             System.out.println(board);
             System.out.println(board.getWriter());
         }
+
+    }
+
+    /*lazy loading - 엔티티 클래스 내부에 연관관계가 있는 경우 조인 처리*/
+    @Test
+    public void testReadWithWriter() {
+
+        Object result = boardRepository.getBoardWithWriter(100L);
+
+        Object[] arr = (Object[]) result;
+
+        System.out.println("-------------------------------------");
+        System.out.println(Arrays.toString(arr));
 
     }
 }
