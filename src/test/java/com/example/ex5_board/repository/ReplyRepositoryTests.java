@@ -41,7 +41,7 @@ public class ReplyRepositoryTests {
     /*SELECT * FROM reply
     LEFT OUTER JOIN board ON reply.board_bno = board.bno
     LEFT OUTER JOIN member ON member.email = board.writer_email
-    WHERE reply.rno = '1';*/
+    WHERE reply.rno = '1';*/ // => 연관된 모든 테이블이 조인됨(Eager Loading): 비효율적
     @Test
     public void readReply1() {
 
