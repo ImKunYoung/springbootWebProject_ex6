@@ -21,6 +21,8 @@ public class Board extends BaseEntity {
     private String content; /*내용*/
 
     /*연관 관계 지정*/
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.LAZY) // Lazy 로딩 명시적으로 지정
+    @ToString.Exclude // 연관관계 엔티티의 변수는 ToString.Exclude 처리할 것
     private Member writer; /*(게시물)작성자*/
+
 }

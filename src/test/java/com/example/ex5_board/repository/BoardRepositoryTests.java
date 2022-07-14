@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -37,6 +38,7 @@ public class BoardRepositoryTests {
 
     /*테이블 조인*/
     /*SELECT * FROM board LEFT OUTER JOIN  member on board.writer_email = member.email;*/
+    @Transactional /*해당 메서드를 하나의 트랜잭션으로 처리 - 필요할 때 다시 db와 연결 , eager loading 과의 조인 방식에 차이가 있음. eager - left outer join, lazy - inner join? */
     @Test
     public void testRead1() {
 
