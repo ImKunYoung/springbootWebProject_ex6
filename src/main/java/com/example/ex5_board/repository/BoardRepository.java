@@ -14,8 +14,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query(q1)
     Object getBoardWithWriter(@Param("bno") Long bno);
 
-    /*연관관계가 없는 엔티티 조인*/
-    String q2 = "SELECT b, r, FROM Board b LEFT JOIN Reply r ON r.board = b WHERE b.bno = :bno";
+    /*연관관계가 없는 엔티티 조인 +ON*/
+    String q2 = "SELECT b, r FROM Board b LEFT JOIN Reply r ON r.board = b WHERE b.bno = :bno";
     @Query(q2)
     List<Object[]> getBoardWithReply(@Param("bno") Long bno);
 

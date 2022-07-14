@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -64,6 +65,18 @@ public class BoardRepositoryTests {
 
         System.out.println("-------------------------------------");
         System.out.println(Arrays.toString(arr));
+
+    }
+
+    /*lazy loading - 연관관계가 없는 엔티티 조인 처리 +OM*/
+    @Test
+    public void testGetBoardWithReply() {
+
+        List<Object[]> result = boardRepository.getBoardWithReply(100L);
+
+        for(Object[] arr : result) {
+            System.out.println(Arrays.toString(arr));
+        }
 
     }
 }
