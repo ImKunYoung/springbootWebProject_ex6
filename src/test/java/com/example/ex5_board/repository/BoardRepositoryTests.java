@@ -36,6 +36,7 @@ public class BoardRepositoryTests {
     }
 
     /*테이블 조인*/
+    /*SELECT * FROM board LEFT OUTER JOIN  member on board.writer_email = member.email;*/
     @Test
     public void testRead1() {
 
