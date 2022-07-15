@@ -1,12 +1,17 @@
 package com.example.ex5_board.service;
 
 import com.example.ex5_board.dto.BoardDTO;
+import com.example.ex5_board.dto.PageRequestDTO;
+import com.example.ex5_board.dto.PageResultDTO;
 import com.example.ex5_board.entity.Board;
 import com.example.ex5_board.entity.Member;
 
 public interface BoardService {
     /*게시물 등록*/
     Long register(BoardDTO dto);
+
+    /*게시물 목록 불러오기*/
+    PageResultDTO<BoardDTO, Object[]> getList(PageRequestDTO pageRequestDTO);
 
     /*DTO -> Entity*/
     default Board dtoToEntity(BoardDTO dto) {

@@ -84,7 +84,7 @@ public class BoardRepositoryTests {
 
     }
 
-    /*목록 화면*/
+    /*게시물 목록 불러오기*/
     @Test
     public void testWithReplyCount() {
 
