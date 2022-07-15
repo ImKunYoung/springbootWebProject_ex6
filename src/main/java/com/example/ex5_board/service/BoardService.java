@@ -7,11 +7,15 @@ import com.example.ex5_board.entity.Board;
 import com.example.ex5_board.entity.Member;
 
 public interface BoardService {
-    /*게시물 등록*/
+
+    /*게시물 등록하기*/
     Long register(BoardDTO dto);
 
     /*게시물 목록 불러오기*/
     PageResultDTO<BoardDTO, Object[]> getList(PageRequestDTO pageRequestDTO);
+
+    /*게시물 조회하기*/
+    BoardDTO get(Long bno);
 
     /*DTO -> Entity*/
     default Board dtoToEntity(BoardDTO dto) {
