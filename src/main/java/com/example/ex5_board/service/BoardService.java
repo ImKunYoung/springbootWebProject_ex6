@@ -8,6 +8,7 @@ public interface BoardService {
     /*게시물 등록*/
     Long register(BoardDTO dto);
 
+    /*DTO -> Entity*/
     default Board dtoToEntity(BoardDTO dto) {
 
         Member member = Member.builder().email(dto.getWriterEmail()).build();
@@ -19,6 +20,23 @@ public interface BoardService {
                 .writer(member)
                 .build();
 
+    }
+
+    /*Entity -> DTO*/
+    default BoardDTO entityToDTO(Board board, Member member, Long replyCount) {
+
+        BoardDTO boardDTO = BoardDTO.builder()
+                .bno(board.getBno())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .regDate(board.getRegDate())
+                .modDate(board.getModDate())
+                .writerEmail(member.getEmail())
+                .writerName(member.getName())
+                .replyCount(replyCount.intValue()) // long 으로 나오므로 int 로 처리
+                .build();
+
+        return boardDTO;
     }
 
 }
