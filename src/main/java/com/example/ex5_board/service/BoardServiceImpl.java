@@ -1,6 +1,6 @@
 package com.example.ex5_board.service;
 
-import com.example.ex5_board.BoardDTO.BoardDTO;
+import com.example.ex5_board.dto.BoardDTO;
 import com.example.ex5_board.entity.Board;
 import com.example.ex5_board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;

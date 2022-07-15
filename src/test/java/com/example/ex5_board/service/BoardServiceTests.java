@@ -1,6 +1,6 @@
 package com.example.ex5_board.service;
 
-import com.example.ex5_board.BoardDTO.BoardDTO;
+import com.example.ex5_board.dto.BoardDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

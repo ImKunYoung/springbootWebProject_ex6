@@ -1,4 +1,4 @@
-package com.example.ex5_board.BoardDTO;
+package com.example.ex5_board.dto;
 
 import lombok.*;
 
