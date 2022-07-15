@@ -48,4 +48,16 @@ public class BoardServiceImpl implements BoardService {
         return new PageResultDTO<>(result, fn);
     }
 
+    /*게시물 조회하기*/
+    @Override
+    public BoardDTO get(Long bno) {
+
+        Object result = repository.getBoardByBno(bno);
+
+        Object[] arr = (Object[]) result;
+
+        return entityToDTO((Board) arr[0], (Member) arr[1], (Long) arr[2]);
+
+    }
+
 }
