@@ -96,4 +96,16 @@ public class BoardRepositoryTests {
 
     }
 
+    /*조회 화면*/
+    @Test
+    public void testRead3() {
+
+        Object result = boardRepository.getBoardByBno(100L);
+
+        Object[] arr = (Object[]) result;
+
+        System.out.println(Arrays.toString(arr));
+
+    }
+
 }
