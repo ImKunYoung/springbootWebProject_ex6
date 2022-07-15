@@ -96,7 +96,7 @@ public class BoardRepositoryTests {
 
     }
 
-    /*조회 화면*/
+    /*게시물 조회하기*/
     @Test
     public void testRead3() {
 
