@@ -43,4 +43,16 @@ public class BoardServiceTests {
 
     }
 
+    /*게시물 조회하기*/
+    @Test
+    public void testGet() {
+
+        Long bno = 100L;
+
+        BoardDTO boardDTO = boardService.get(bno);
+
+        System.out.println(boardDTO);
+
+    }
+
 }
