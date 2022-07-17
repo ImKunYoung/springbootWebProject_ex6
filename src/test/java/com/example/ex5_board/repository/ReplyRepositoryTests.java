@@ -2,9 +2,11 @@ package com.example.ex5_board.repository;
 
 import com.example.ex5_board.entity.Board;
 import com.example.ex5_board.entity.Reply;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -53,6 +55,19 @@ public class ReplyRepositoryTests {
             System.out.println(reply);
             System.out.println(reply.getBoard());
 
+        }
+
+    }
+
+    @Transactional
+    @Test
+    @DisplayName("댓글을 삭제한다")
+    public void deleteReply() {
+
+        Long bno = 100L;
+
+        if(replyRepository.findById(bno).isPresent()) {
+            replyRepository.deleteByBno(bno);
         }
 
     }
