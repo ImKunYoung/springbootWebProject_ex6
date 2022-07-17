@@ -17,6 +17,9 @@ public interface BoardService {
     /*게시물 조회하기*/
     BoardDTO get(Long bno);
 
+    /*게시물 삭제하기*/
+    void removeWithReplies(Long bno);
+
     /*DTO -> Entity*/
     default Board dtoToEntity(BoardDTO dto) {
 
