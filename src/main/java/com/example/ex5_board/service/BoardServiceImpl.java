@@ -6,11 +6,13 @@ import com.example.ex5_board.dto.PageResultDTO;
 import com.example.ex5_board.entity.Board;
 import com.example.ex5_board.entity.Member;
 import com.example.ex5_board.repository.BoardRepository;
+import com.example.ex5_board.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.function.Function;
 
@@ -20,6 +22,8 @@ import java.util.function.Function;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository repository; // 자동 주입 final
+
+    private final ReplyRepository replyRepository;
 
     /*게시물 등록*/
     @Override
@@ -57,6 +61,19 @@ public class BoardServiceImpl implements BoardService {
         Object[] arr = (Object[]) result;
 
         return entityToDTO((Board) arr[0], (Member) arr[1], (Long) arr[2]);
+
+    }
+
+    /*게시물 삭제하기*/
+    @Transactional
+    @Override
+    public void removeWithReplies(Long bno) { // 삭제 기능 구현, 트랜잭션 추가
+
+        // 1. 참조 댓글 삭제
+        replyRepository.deleteByBno(bno);
+
+        // 2. 게시물 삭제
+        repository.deleteById(bno);
 
     }
 
