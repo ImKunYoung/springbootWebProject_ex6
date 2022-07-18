@@ -82,7 +82,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void modify(BoardDTO boardDTO) {
 
-        Board board = repository.getReferenceById(boardDTO.getBno());
+        Board board = repository.getReferenceById(boardDTO.getBno()); // 필요한 순간까지 로딩지연
 
         board.changeTitle(boardDTO.getTitle());
         board.changeContent(boardDTO.getContent());
