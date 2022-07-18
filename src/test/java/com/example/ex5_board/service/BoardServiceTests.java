@@ -55,4 +55,18 @@ public class BoardServiceTests {
 
     }
 
+    /*게시물 수정하기*/
+    @Test
+    public void testModify() {
+
+        BoardDTO boardDTO = BoardDTO.builder()
+                .bno(2L)
+                .title("제목 변경됨.")
+                .content("내용 변경함")
+                .build();
+
+        boardService.modify(boardDTO);
+
+    }
+
 }
