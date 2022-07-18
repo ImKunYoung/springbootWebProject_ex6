@@ -75,5 +75,20 @@ public class BoardController {
     }
 
 
+    /*게시물 삭제 처리*/
+    @PostMapping("/remove")
+    public String remove(long bno, RedirectAttributes redirectAttributes) {
+
+        log.info("bno: "+bno);
+
+        boardService.removeWithReplies(bno);
+
+        redirectAttributes.addFlashAttribute("msg", bno);
+
+        return "redirect:/board/list";
+
+    }
+
+
 
 }
