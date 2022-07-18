@@ -25,4 +25,14 @@ public class Board extends BaseEntity {
     @ToString.Exclude // 연관관계 엔티티의 변수는 ToString.Exclude 처리할 것
     private Member writer; /*(게시물)작성자*/
 
+    /*제목 수정하기*/
+    public void changeTitle(String title) {
+        this.title = title;
+    }
+
+    /*내용 수정하기*/
+    public void changeContent(String content) {
+        this.content = content;
+    }
+
 }
