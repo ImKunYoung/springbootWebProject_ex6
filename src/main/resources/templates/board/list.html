@@ -29,6 +29,52 @@
 		</h1>
 
 
+		<!--검색 입력-->
+		<form action="/guestbook/list" method="get" id="searchForm">
+
+
+			<div class="input-group">
+
+
+				<!--검색 페이징 initialize-->
+				<input type="hidden" name="page" value="1">
+
+
+				<!--검색 타입 select box-->
+				<div class="input-group-prepend">
+
+					<select class="custom-select" name="type">
+						<option th:selected="${pageRequestDTO.type == null}">--------</option>
+
+						<option value="t" th:selected="${pageRequestDTO.type == 't'}">제목</option>
+						<option value="c" th:selected="${pageRequestDTO.type == 'c'}">내용</option>
+						<option value="w" th:selected="${pageRequestDTO.type == 'w'}">작성자</option>
+						<option value="tc" th:selected="${pageRequestDTO.type == 'tc'}">제목 + 내용</option>
+						<option value="tcw" th:selected="${pageRequestDTO.type == 'tcw'}">제목 + 내용 + 작성자</option>
+					</select>
+
+				</div>
+
+
+				<!--키워드 입력창-->
+				<input class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}">
+
+
+				<!--검색 버튼-->
+				<div class="input-group-append" id="button-addon4">
+					<!--버튼1 검색하기-->
+					<button class="btn btn-outline-secondary btn-search" type="button">Search</button>
+					<!--버튼2 검색 내용 초기화-->
+					<button class="btn btn-outline-secondary btn-clear" type="button">Clear</button>
+				</div>
+
+
+			</div>
+
+
+		</form>
+
+
 		<!--게시물 리스트-->
 		<table class="table table-striped">
 
