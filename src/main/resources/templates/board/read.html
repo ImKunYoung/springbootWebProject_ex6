@@ -23,13 +23,19 @@
 		</div>
 
 		<!--게시물 제목-->
+
+
+		<!--게시물 내용-->
 		<div class="form-group">
 			<label>Content</label>
 			<textarea class="form-control" rows="5" name="content" readonly>[[${dto.content}]]</textarea>
 		</div>
 
-		<!--게시물 내용-->
 		<!--작성자-->
+		<div class="form-group">
+			<label>Writer</label>
+			<input type="text" class="form-control" name="writer" th:value="${dto.writerName}" readonly>
+		</div>
 		<!--작성일-->
 		<!--최종 수정일-->
 
