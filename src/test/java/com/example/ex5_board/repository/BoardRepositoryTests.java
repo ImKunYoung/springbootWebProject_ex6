@@ -2,6 +2,7 @@ package com.example.ex5_board.repository;
 
 import com.example.ex5_board.entity.Board;
 import com.example.ex5_board.entity.Member;
+import com.example.ex5_board.service.BoardService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +22,9 @@ public class BoardRepositoryTests {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private BoardService boardService;
 
     /*INSERT SAMPLE DATA*/
     @Test
@@ -108,4 +112,13 @@ public class BoardRepositoryTests {
 
     }
 
+    /*게시물 삭제하기*/
+    @Test
+    public void testRemove() {
+
+        Long bno = 1L;
+
+        boardService.removeWithReplies(bno);
+
+    }
 }
