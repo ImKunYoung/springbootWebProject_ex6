@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>list</title>
+</head>
+
+<!--replace-->
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+	<!--basic content 부분에 들어가는 내용-->
+	<th:block th:fragment="content">
+
+		<h1 class="mt-4">Board List Page
+
+			<!--게시물 등록-->
+			<span>
+
+				<a th:href="@{/board/register}">
+
+					<button type="button" class="btn btn-outline-primary">
+						REGISTER
+					</button>
+
+				</a>
+
+			</span>
+
+		</h1>
+
+
+
+	</th:block>
+
+</th:block>
+
+
+</html>
