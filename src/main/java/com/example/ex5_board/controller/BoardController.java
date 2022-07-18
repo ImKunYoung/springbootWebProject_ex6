@@ -17,11 +17,24 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    /*목록 스크린 처리*/
+    /*게시물 목록 페이지*/
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO, Model model) {
+
+        log.info("list..............." + pageRequestDTO);
 
         model.addAttribute("result", boardService.getList(pageRequestDTO));
 
     }
+
+
+    /*게시물 등록 페이지*/
+    @GetMapping("/register")
+    public void register() {
+
+        log.info("register get...");
+
+    }
+
+
 }
