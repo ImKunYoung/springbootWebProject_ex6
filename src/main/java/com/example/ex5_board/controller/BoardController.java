@@ -60,8 +60,8 @@ public class BoardController {
     }
 
 
-    /*게시물 조회하기*/
-    @GetMapping("/read")
+    /*게시물 조회하기 페이지, 게시물 수정하기 페이지*/
+    @GetMapping({"/read", "modify"})
     public void read(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Long bno, Model model) {
 
         log.info("bno: " + bno);
