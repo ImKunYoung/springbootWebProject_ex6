@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>read</title>
+</head>
+
+<!--replace-->
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+	<!--basic content 에 삽입되는 부분-->
+	<th:block th:fragment="content">
+
+		<h1 class="mt-4">Board Read Page</h1>
+
+	</th:block>
+
+</th:block>
+
+</html>
