@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <th:block block th:fragment="setContent(content)">
+
 <head>
 
 	<meta charset="UTF-8">
@@ -26,9 +26,12 @@
 	<!--<link th:href="@{/css/simple-sidebar.css}" rel="stylesheet">-->
 
 </head>
+
 <body>
 
 <div class="d-flex" id="wrapper">
+
+
 	<!-- Sidebar-->
 	<div class="border-end bg-white" id="sidebar-wrapper">
 		<div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
@@ -41,6 +44,7 @@
 			<a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
 		</div>
 	</div>
+
 	<!-- Page content wrapper-->
 	<div id="page-content-wrapper">
 		<!-- Top navigation-->
@@ -65,11 +69,15 @@
 				</div>
 			</div>
 		</nav>
+
 		<!-- Page content-->
 		<div class="container-fluid">
 			<th:block th:replace = "${content}"/>
 		</div>
+
 	</div>
+
+
 </div>
 
 </body>
