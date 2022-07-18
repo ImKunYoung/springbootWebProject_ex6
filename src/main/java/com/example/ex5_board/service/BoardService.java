@@ -20,6 +20,10 @@ public interface BoardService {
     /*게시물 삭제하기*/
     void removeWithReplies(Long bno);
 
+    /*게시물 수정하기*/
+    void modify(BoardDTO boardDTO);
+
+
     /*DTO -> Entity*/
     default Board dtoToEntity(BoardDTO dto) {
 
