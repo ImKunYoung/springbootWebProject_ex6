@@ -116,7 +116,7 @@ public class BoardRepositoryTests {
     @Test
     public void testRemove() {
 
-        Long bno = 1L;
+        Long bno = 102L;
 
         boardService.removeWithReplies(bno);
 
