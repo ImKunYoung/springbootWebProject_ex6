@@ -2,9 +2,38 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Title</title>
+	<title>Register</title>
 </head>
-<body>
 
-</body>
+<!--replace-->
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+	<!--basic content 에 삽입되는 부분-->
+	<th:block th:fragment="content">
+
+
+		<h1 class="mt-4">Board Register Page</h1>
+
+
+		<form th:action="@{/board/register}" th:method="post">
+
+			<!--제목 입력-->
+			<div class="form-group">
+				<label>Title</label>
+				<input type="text" class="form-control" name="title" placeholder="Enter Title">
+			</div>
+
+			<!--내용 입력-->
+			<!--이메일 주소 입력-->
+			<!--제출 버튼-->
+
+
+
+		</form>
+
+
+	</th:block>
+
+</th:block>
+
 </html>
