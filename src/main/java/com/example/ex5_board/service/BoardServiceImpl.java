@@ -78,6 +78,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     /*게시물 수정하기*/
+    @Transactional
     @Override
     public void modify(BoardDTO boardDTO) {
 
