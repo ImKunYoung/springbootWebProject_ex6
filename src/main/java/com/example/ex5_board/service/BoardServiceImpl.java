@@ -77,4 +77,18 @@ public class BoardServiceImpl implements BoardService {
 
     }
 
+    /*게시물 수정하기*/
+    @Override
+    public void modify(BoardDTO boardDTO) {
+
+        Board board = repository.getReferenceById(boardDTO.getBno());
+
+        board.changeTitle(boardDTO.getTitle());
+        board.changeContent(boardDTO.getContent());
+
+        repository.save(board);
+
+    }
+
+
 }
