@@ -48,7 +48,8 @@
 
 		<!--최종 수정일-->
 		<div class="form-group">
-
+			<label>ModDate</label>
+			<input type="text" class="form-control" name="modDate" th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
 		</div>
 
 		<!--수정 버튼-->
