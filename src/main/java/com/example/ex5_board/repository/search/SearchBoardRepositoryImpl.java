@@ -4,7 +4,9 @@ import com.example.ex5_board.entity.Board;
 import com.example.ex5_board.entity.QBoard;
 import com.example.ex5_board.entity.QMember;
 import com.example.ex5_board.entity.QReply;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPQLQuery;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -54,6 +56,42 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
     public Page<Object[]> searchPage(String type, String keyword, Pageable pageable) {
 
         log.info("searchPage----------------------------------------");
+
+        QBoard board = QBoard.board;
+        QReply reply = QReply.reply;
+        QMember member = QMember.member;
+
+        JPQLQuery<Board> jpqlQuery = from(board);
+        jpqlQuery.leftJoin(member).on(board.writer.eq(member));
+        jpqlQuery.leftJoin(reply).on(reply.board.eq(board));
+
+        JPQLQuery<Tuple> tuple = jpqlQuery.select(board, member.email, reply.count());
+
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        BooleanExpression expression = board.bno.gt(0L);
+
+        booleanBuilder.and(expression);
+
+        if (type!=null) {
+           String[] typeArr = type.split("");
+           BooleanBuilder conditionBuilder = new BooleanBuilder();
+
+            for(String t: typeArr) {
+                switch (t) {
+                    case "t" -> conditionBuilder.or(board.title.contains(keyword));
+                    case "w" -> conditionBuilder.or(member.email.contains(keyword));
+                    case "c" -> conditionBuilder.or(board.content.contains(keyword));
+                }
+           }
+        }
+
+        tuple.where(booleanBuilder);
+
+        tuple.groupBy(board);
+
+        List<Tuple> result = tuple.fetch();
+
+        log.info(result);
 
         return null;
 
