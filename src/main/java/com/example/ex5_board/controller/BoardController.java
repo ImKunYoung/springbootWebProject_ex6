@@ -91,7 +91,7 @@ public class BoardController {
 
 
     /*게시물 수정 처리*/
-    @PostMapping("modify")
+    @PostMapping("/modify")
     public String modify(BoardDTO dto, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, RedirectAttributes redirectAttributes) {
 
         log.info("post modify----------------------------------------------------");
