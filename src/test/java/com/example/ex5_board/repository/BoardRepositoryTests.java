@@ -121,4 +121,13 @@ public class BoardRepositoryTests {
         boardService.removeWithReplies(bno);
 
     }
+
+    /*repository 확장*/
+    @Test
+    public void testSearch1() {
+
+        boardRepository.search1();
+
+    }
+
 }
