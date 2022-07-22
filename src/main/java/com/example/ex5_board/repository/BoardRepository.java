@@ -1,5 +1,6 @@
 package com.example.ex5_board.repository;
 
+import com.example.ex5_board.repository.search.SearchBoardRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,7 +10,7 @@ import com.example.ex5_board.entity.Board;
 
 import java.util.List;
 
-public interface BoardRepository extends JpaRepository<Board, Long> {
+public interface BoardRepository extends JpaRepository<Board, Long>, SearchBoardRepository {
 
     /*연관관계가 있는 엔티티 조인*/
     String q1 = "select b, w from Board b left join b.writer w where b.bno =:bno";
