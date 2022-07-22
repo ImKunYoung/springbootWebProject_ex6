@@ -35,7 +35,7 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
 
         List<Board> result = jpqlQuery.fetch();
 
-        return result.get(0);
+        return null;
 
     }
 
