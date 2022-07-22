@@ -130,4 +130,14 @@ public class BoardRepositoryTests {
 
     }
 
+    /*JPQLQuery로 Page<Object[]> 처리*/
+    @Test
+    public void testSearchPage() {
+
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("bno").descending());
+
+        Page<Object[]> result = boardRepository.searchPage("t", "1", pageable);
+
+    }
+
 }
