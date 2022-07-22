@@ -4,6 +4,7 @@ import com.example.ex5_board.entity.Board;
 import com.example.ex5_board.entity.QBoard;
 import com.example.ex5_board.entity.QMember;
 import com.example.ex5_board.entity.QReply;
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.JPQLQuery;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
@@ -32,14 +33,16 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
         jpqlQuery.leftJoin(member).on(board.writer.eq(member));
         jpqlQuery.leftJoin(reply).on(reply.board.eq(board));
 
-        jpqlQuery.select(board, member.email, reply.count()).groupBy(board);
+        JPQLQuery<Tuple> tuple = jpqlQuery.select(board, member.email, reply.count());
+        tuple.groupBy(board);
 
         log.info("_________________________________________________");
-        log.info(jpqlQuery);
+        log.info(tuple);
         log.info("_________________________________________________");
 
+        List<Tuple> result = tuple.fetch();
 
-        List<Board> result = jpqlQuery.fetch();
+        log.info(result);
 
         return null;
 
