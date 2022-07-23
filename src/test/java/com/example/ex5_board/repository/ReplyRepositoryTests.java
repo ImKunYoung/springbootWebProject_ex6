@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -68,6 +69,26 @@ public class ReplyRepositoryTests {
 
         if(replyRepository.findById(bno).isPresent()) {
             replyRepository.deleteByBno(bno);
+        }
+
+    }
+
+    /*게시물에 댓글 목록 가지고 오기*/
+    @Test
+    public void testListByBoard() {
+
+        List<Reply> replyList = replyRepository.getRepliesByBoardOrderByRno(Board.builder().bno(104L).build());
+
+        // replyList.forEach(reply -> System.out.println(reply));
+
+        // replyList.forEach(System.out::println);
+
+//        for (Reply reply : replyList) {
+//            System.out.println(reply.toString());
+//        }
+
+        for (Reply reply : replyList) {
+            System.out.println(reply);
         }
 
     }
