@@ -30,7 +30,9 @@ public class ReplyController {
 
         log.info("bno: "+bno);
 
-        return new ResponseEntity<>(replyService.getList(bno), HttpStatus.OK);
+        List<ReplyDTO> replyDTOList = replyService.getList(bno);
+
+        return new ResponseEntity<>(replyDTOList, HttpStatus.OK);
 
     }
 
