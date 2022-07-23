@@ -118,7 +118,15 @@ public class BoardRepositoryTests {
 
         Long bno = 102L;
 
-        boardService.removeWithReplies(bno);
+        while(true) {
+            if (boardRepository.findById(bno).isPresent()) {
+                boardService.removeWithReplies(bno);
+                return;
+            } else {
+                ++bno;
+            }
+        }
+
 
     }
 
