@@ -37,7 +37,7 @@ public interface ReplyService {
     }
 
     /*ReplyDTO -> ReplyEntity*/
-    default ReplyDTO dtoToEntity(Reply reply) {
+    default ReplyDTO entityToDTO(Reply reply) {
 
         // Reply 객체를 ReplyDTO 로 변환 시 Board 객체가 필요하지 않으므로 게시물 번호만
         ReplyDTO dto = ReplyDTO.builder()
