@@ -22,5 +22,10 @@ public class Reply extends BaseEntity {
 
     /*연관 관계 지정*/
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Board board; /*게시물 정보*/
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
 }
