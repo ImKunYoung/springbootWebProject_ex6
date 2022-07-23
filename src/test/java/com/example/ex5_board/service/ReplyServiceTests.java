@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 @SpringBootTest
 public class ReplyServiceTests {
 
@@ -22,6 +24,16 @@ public class ReplyServiceTests {
                 .build();
 
         System.out.println(replyService.register(replyDTO));
+
+    }
+
+    /*getList(Long) -> List<ReplyDTO> 테스트*/
+    @Test
+    public void testGetList() {
+
+        List<ReplyDTO> replyDTOS = replyService.getList(100L);
+
+        replyDTOS.forEach(System.out::println);
 
     }
 
