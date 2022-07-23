@@ -18,6 +18,9 @@ public class ReplyRepositoryTests {
     @Autowired
     private ReplyRepository replyRepository;
 
+    @Autowired
+    private BoardRepository boardRepository;
+
     /*INSERT SAMPLE DATA*/
     @Test
     public void insertReply() {
@@ -27,15 +30,18 @@ public class ReplyRepositoryTests {
             /*1부터 100까지의 임의의 번호*/
             long bno = (long)(Math.random() * 100) + 1;
 
-            Board board = Board.builder().bno(bno).build();
+            if (boardRepository.findById(bno).isPresent()) {
+                Board board = Board.builder().bno(bno).build();
 
-            Reply reply = Reply.builder()
-                    .text("Reply......."+i)
-                    .board(board)
-                    .replyer("guest")
-                    .build();
+                Reply reply = Reply.builder()
+                        .text("Reply......."+i)
+                        .board(board)
+                        .replyer("guest")
+                        .build();
 
-            replyRepository.save(reply);
+                replyRepository.save(reply);
+            }
+
 
         });
     }
