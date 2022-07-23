@@ -65,10 +65,10 @@
 			<button type="button" class="btn btn-info">List</button>
 		</a>
 
-		<!--댓글 버튼-->
+		<!--댓글-->
 		<div>
 
-			<!--버튼-->
+			<!--댓글 버튼-->
 			<div class="mt-4">
 				<h5>
 					<span class="badge badge-secondary replyCount">Reply Count [[${dto.replyCount}]]</span>
@@ -81,6 +81,22 @@
 			</div>
 
 		</div>
+
+
+		<!--댓글 버튼 처리-->
+		<script th:inline="javascript">
+			$(document).ready(() => { // Dom 이 완전히 불러와지면 실행
+
+                const bno = [[${dto.bno}]];
+
+                const listGroup = $(".replyList");
+
+                $(".replyCount").click(
+                    ()=> {$.getJSON('/replies/board/'+bno, (arr) => {console.log(arr)})} // end getJSON
+				)
+
+			}) // end click
+		</script>
 
 	</th:block>
 
