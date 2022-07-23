@@ -11,7 +11,7 @@ public class ReplyServiceTests {
     @Autowired
     ReplyService replyService;
 
-    /*register(ReplyDTO) 테스트*/
+    /*register(ReplyDTO) -> Long 테스트*/
     @Test
     public void testRegister() {
 
