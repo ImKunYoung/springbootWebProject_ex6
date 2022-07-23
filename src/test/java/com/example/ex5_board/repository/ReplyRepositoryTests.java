@@ -28,7 +28,7 @@ public class ReplyRepositoryTests {
         IntStream.rangeClosed(1, 300).forEach(i -> {
 
             /*1부터 100까지의 임의의 번호*/
-            long bno = (long)(Math.random() * 100) + 1;
+            long bno = (long)(Math.random() * 400) + 1;
 
             if (boardRepository.findById(bno).isPresent()) {
                 Board board = Board.builder().bno(bno).build();

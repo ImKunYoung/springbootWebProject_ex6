@@ -102,7 +102,7 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
             Order direction = order.isAscending() ? Order.ASC : Order.DESC;
             String prop = order.getProperty();
 
-            PathBuilder orderByExpression = new PathBuilder(Board.class, "board");
+            PathBuilder<Board> orderByExpression = new PathBuilder<>(Board.class, "board");
 
             tuple.orderBy(new OrderSpecifier(direction, orderByExpression.get(prop)));
 
@@ -123,7 +123,7 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
 
         log.info("COUNT: "+ count);
 
-        return new PageImpl<Object[]>(result.stream().map(t -> t.toArray()).collect(Collectors.toList()), pageable, count);
+        return new PageImpl<>(result.stream().map(Tuple::toArray).collect(Collectors.toList()), pageable, count);
 
     }
 
