@@ -54,7 +54,6 @@ public class ReplyRepositoryTests {
             Reply reply = result.get();
 
             System.out.println(reply);
-            System.out.println(reply.getBoard());
 
         }
 
