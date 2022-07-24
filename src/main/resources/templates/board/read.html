@@ -89,14 +89,68 @@
 
                 const bno = [[${dto.bno}]];
 
+                /*댓글이 추가될 영역*/
                 const listGroup = $(".replyList");
 
-                $(".replyCount").click(
-                    ()=> {$.getJSON('/replies/board/'+bno, (arr) => {console.log(arr)})} // end getJSON, https://mkil.tistory.com/357, https://www.google.co.kr/search?q=getjson+%EC%82%AC%EC%9A%A9%EB%B2%95&source=hp&ei=_nrcYuCENtvBhwPbl4nQBQ&iflsig=AJiK0e8AAAAAYtyJDoFae2VppRc4Fzf--3u5pRj43Mdp&oq=getJS&gs_lcp=Cgdnd3Mtd2l6EAMYAzIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBwgAEIAEEAoyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDoOCC4QgAQQsQMQxwEQ0QM6CAgAEIAEELEDOgsIABCABBCxAxCDAToRCC4QgAQQsQMQgwEQxwEQ0QM6BAguEAM6CwguEIAEEMcBENEDOhEILhCABBCxAxDHARDRAxDUAjoOCC4QgAQQxwEQ0QMQ1AI6BggAEAoQEzoICAAQHhAKEBM6BggAEB4QE1AAWOwbYMI4aANwAHgAgAGvAYgBwwmSAQMwLjmYAQCgAQGwAQA&sclient=gws-wiz 참고
-				)
+                /*날짜 처리를 위한 함수*/
+				const formatTime = (str) => {
+                    const date = new Date(str);
 
-			}) // end click
+                    return date.getFullYear() + '/'
+						+ (date.getMonth() + 1) + '/'
+						+ date.getDate() + ' '
+						+ date.getHours() + ':'
+						+ date.getMinutes();
+
+				}
+
+
+                /*특정한 게시글의 댓글을 처리하는 함수*/
+				const loadJSONDate = () => {
+                    $.getJSON('/replies/board/'+bno, arr => { // https://mkil.tistory.com/357  참고
+
+                        console.log(arr)
+
+						let str = "";
+
+                        $('.replyCount').html("  Reply Count  "+ arr.length);
+
+                        /*array 반복문*/
+                        $.each(arr, (idx, reply) => {
+                            console.log("==========="+reply);
+
+                            str +='<div class="card-body" data-rno="' + reply.rno + '">'
+								+ '<b>' + reply.rno + '</b>';
+
+                            str +='<h5 class="card-title">' + reply.text + '</h5>';
+
+                            str +='<h6 class="card-subtitle mb-2 text-muted">' + reply.replyer + '</h6>';
+
+                            str +='<p class="card-text">' + formatTime(reply.regDate) + '</p>';
+
+                            str +='</div>';
+
+						})
+
+						listGroup.html(str);
+
+                    });
+
+				}
+
+
+                const Handler_replyCount = () => {
+                    loadJSONDate()
+				}
+
+                /*전역적으로 돌아가는..*/
+                $(".replyCount").click(
+                    Handler_replyCount
+				) // end click
+
+			})
 		</script>
+
 
 	</th:block>
 
