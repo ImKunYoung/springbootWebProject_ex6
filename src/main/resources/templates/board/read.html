@@ -70,9 +70,18 @@
 
 			<!--댓글 버튼-->
 			<div class="mt-4">
+
+				<!--댓글 추가 버튼-->
+				<h5>
+					<span class="badge badge-info addReply">Add Reply</span>
+				</h5>
+
+				<!--댓글 보기 버튼-->
 				<h5>
 					<span class="badge badge-secondary replyCount">Reply Count [[${dto.replyCount}]]</span>
 				</h5>
+
+
 			</div>
 
 
@@ -83,9 +92,9 @@
 		</div>
 
 
-		<!--댓글 버튼 처리-->
+		<!--댓글 보기 버튼 처리-->
 		<script th:inline="javascript">
-			$(document).ready(() => { // Dom 이 완전히 불러와지면 실행
+            $(document).ready(() => { // Dom 이 완전히 불러와지면 실행
 
                 const bno = [[${dto.bno}]];
 
@@ -93,25 +102,25 @@
                 const listGroup = $(".replyList");
 
                 /*날짜 처리를 위한 함수*/
-				const formatTime = (str) => {
+                const formatTime = (str) => {
                     const date = new Date(str);
 
                     return date.getFullYear() + '/'
-						+ (date.getMonth() + 1) + '/'
-						+ date.getDate() + ' '
-						+ date.getHours() + ':'
-						+ date.getMinutes();
+                        + (date.getMonth() + 1) + '/'
+                        + date.getDate() + ' '
+                        + date.getHours() + ':'
+                        + date.getMinutes();
 
-				}
+                }
 
 
                 /*특정한 게시글의 댓글을 처리하는 함수*/
-				const loadJSONDate = () => {
+                const loadJSONDate = () => {
                     $.getJSON('/replies/board/'+bno, arr => { // https://mkil.tistory.com/357  참고
 
                         console.log(arr)
 
-						let str = "";
+                        let str = "";
 
                         $('.replyCount').html("  Reply Count  "+ arr.length);
 
@@ -120,7 +129,7 @@
                             console.log("==========="+reply);
 
                             str +='<div class="card-body" data-rno="' + reply.rno + '">'
-								+ '<b>' + reply.rno + '</b>';
+                                + '<b>' + reply.rno + '</b>';
 
                             str +='<h5 class="card-title">' + reply.text + '</h5>';
 
@@ -130,26 +139,90 @@
 
                             str +='</div>';
 
-						})
+                        })
 
-						listGroup.html(str);
+                        listGroup.html(str);
 
                     });
 
-				}
+                }
 
 
                 const Handler_replyCount = () => {
                     loadJSONDate()
-				}
+                }
 
                 /*전역적으로 돌아가는..*/
                 $(".replyCount").click(
                     Handler_replyCount
-				) // end click
+                ) // end click
 
-			})
+            })
 		</script>
+
+		<!--댓글 추가 처리-->
+		<script th:inline="javascript">
+            $(document).ready(() => { // Dom 이 완전히 불러와지면 실행
+
+                /*모달 컴포넌트*/
+                const modal = $('.modal');
+
+                /*이벤트 처리*/
+                const handle_AddReply = () => {
+                    modal.modal('show');
+                }
+
+                /*addReply 클릭 시 이벤트 처리 함수 호출*/
+                $(".addReply").click(handle_AddReply);
+
+            })
+		</script>
+
+		<!--댓글 추가 모달-->
+		<div class="modal" tabindex="-1" role="dialog">
+
+			<div class="modal-dialog" role="document">
+
+				<div class="modal-content">
+
+					<div class="modal-header">
+						<h5 class="modal-title">Modal Title</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+
+						<div class="form-group">
+							<input class="form-control" type="text" name="replyText" placeholder="Reply Text...">
+						</div>
+
+						<div class="form-group">
+							<input class="form-control" type="text" name="replyer" placeholder="Replyer">
+							<input type="hidden" name="rno">
+						</div>
+
+					</div>
+
+					<div class="modal-footer">
+						<!--삭제 버튼-->
+						<button type="button" class="btn btn-danger replyRemove">Remove</button>
+						<!--수정 버튼-->
+						<button type="button" class="btn btn-warning replyModify">Modify</button>
+						<!--저장 버튼-->
+						<button type="button" class="btn btn-primary replySave">Save</button>
+
+						<!--닫기 버튼-->
+						<button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">Close</button>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
 
 
 	</th:block>
