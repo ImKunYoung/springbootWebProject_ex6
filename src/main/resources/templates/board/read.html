@@ -206,7 +206,7 @@
 		</div>
 
 
-		<!--댓글 추가 처리-->
+		<!--댓글 추가 모달 처리-->
 		<script th:inline="javascript">
             $(document).ready(() => { // Dom 이 완전히 불러와지면 실행
 
@@ -216,7 +216,19 @@
                 /*이벤트 처리*/
                 const handle_AddReply = () => {
                     modal.modal('show');
+
+                    /*댓글 입력하는 부분 초기화*/
+					$('input[name="replyText"]').val('');
+					$('input[name="replyer"]').val('');
+
+
+                    /*모달 내의 모든 버튼을 안 보이도록*/
+					$(".modal-footer .btn").hide();
+                    /*댓글 추가 모달에 필요한 버튼만 show*/
+                    $(".replySave, .replyClose").show();
                 }
+
+
 
                 /*addReply 클릭 시 이벤트 처리 함수 호출*/
                 $(".addReply").click(handle_AddReply);
