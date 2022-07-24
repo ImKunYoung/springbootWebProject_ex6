@@ -4899,6 +4899,11 @@ textarea.form-control-lg {
   display: none;
 }
 
+.badge-info {
+  background-color: #1a1e21;
+  color: #f0f0f0;
+}
+
 .badge-secondary {
   background-color: #1a1e21;
   color: #f0f0f0;
