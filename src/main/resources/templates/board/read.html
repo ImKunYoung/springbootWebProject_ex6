@@ -113,7 +113,6 @@
 
                 }
 
-
                 /*특정한 게시글의 댓글을 처리하는 함수*/
                 const loadJSONDate = () => {
                     $.getJSON('/replies/board/'+bno, arr => { // https://mkil.tistory.com/357  참고
@@ -147,7 +146,6 @@
 
                 }
 
-
                 const Handler_replyCount = () => {
                     loadJSONDate()
                 }
@@ -160,23 +158,7 @@
             })
 		</script>
 
-		<!--댓글 추가 처리-->
-		<script th:inline="javascript">
-            $(document).ready(() => { // Dom 이 완전히 불러와지면 실행
 
-                /*모달 컴포넌트*/
-                const modal = $('.modal');
-
-                /*이벤트 처리*/
-                const handle_AddReply = () => {
-                    modal.modal('show');
-                }
-
-                /*addReply 클릭 시 이벤트 처리 함수 호출*/
-                $(".addReply").click(handle_AddReply);
-
-            })
-		</script>
 
 		<!--댓글 추가 모달-->
 		<div class="modal" tabindex="-1" role="dialog">
@@ -222,6 +204,27 @@
 			</div>
 
 		</div>
+
+
+		<!--댓글 추가 처리-->
+		<script th:inline="javascript">
+            $(document).ready(() => { // Dom 이 완전히 불러와지면 실행
+
+                /*모달 컴포넌트*/
+                const modal = $('.modal');
+
+                /*이벤트 처리*/
+                const handle_AddReply = () => {
+                    modal.modal('show');
+                }
+
+                /*addReply 클릭 시 이벤트 처리 함수 호출*/
+                $(".addReply").click(handle_AddReply);
+
+            })
+		</script>
+
+
 
 
 
