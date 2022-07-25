@@ -144,10 +144,23 @@
 
                 const bno = [[${dto.bno}]];
 
-                /*댓글이 추가될 영역*/
-                const listGroup = $(".replyList");
+				/*-------------------------------모달 생성-------------------------------*/
 
-                /*날짜 처리를 위한 함수*/
+                /*댓글추가 모달*/
+                const add_Modal = () => {
+                    $('.modal').modal('show');
+
+                    /*입력창 초기화*/
+                    $('input[name="replyText"]').val('');
+                    $('input[name="replyer"]').val('');
+
+                    $(".modal-footer .btn").hide(); // 모달 내의 모든 버튼을 안 보이도록
+                    $(".replySave, .replyClose").show(); // 댓글 추가 모달에 필요한 버튼만 show
+                }
+
+                /*-------------------------------function-------------------------------*/
+
+                /*날짜 처리 형식 변환*/
                 const formatTime = (str) => {
                     const date = new Date(str);
 
@@ -183,59 +196,21 @@
                                 str +='<p class="card-text">'+ formatTime(reply.regDate) +'</p>';
                                 str +='</div>';
                             })
-                            listGroup.html(str);
+                            $(".replyList").html(str);
 						}
                         Init();
                     });
                 }
 
-
-                /*댓글 보기 버튼 처리 ....전역적으로 돌아가는..*/
-                $(".replyCount").click(() => {Handler_replyCount()});
-
-                /*댓글 보기 버튼 처리 */
-                const Handler_replyCount = () => {loadJSONData()}
-
-
-
-
-                /*Add Reply(댓글 추가) 모달 생성*/
-                $(document).ready(() => { // Dom 이 완전히 불러와지면 실행
-
-                    /*댓글 추가 버튼 - 이벤트 처리*/
-                    const handle_AddReply = () => {
-                        $('.modal').modal('show');
-
-                        /*댓글 입력하는 부분 초기화*/
-                        $('input[name="replyText"]').val('');
-                        $('input[name="replyer"]').val('');
-
-                        /*모달 내의 모든 버튼을 안 보이도록*/
-                        $(".modal-footer .btn").hide();
-                        /*댓글 추가 모달에 필요한 버튼만 show*/
-                        $(".replySave, .replyClose").show();
-                    }
-
-                    /*addReply 클릭 시 이벤트 처리 함수 호출*/
-                    $(".addReply").click(handle_AddReply);
-
-                })
-
-                /*댓글 추가 모달 이벤트 처리*/
-                $(".replySave").click(() => {handle_replySave()});
-
-                /*댓글 추가 모달 이벤트 처리*/
-                const handle_replySave = () => {
-
+                /*댓글 저장하기*/
+                const save_Reply = () => {
                     /*reply dto 생성*/
                     const reply = {
                         bno: [[${dto.bno}]],
                         text: $('input[name="replyText"]').val(),
                         replyer: $('input[name="replyer"]').val(),
                     }
-
                     console.log(reply);
-
                     /*댓글 저장 처리*/
                     $.ajax({
                         url:'/replies/',
@@ -248,11 +223,22 @@
                             const newRno = parseInt(data);
                             alert(newRno + `번 댓글이 등록되었습니다.`)
                             $('.modal').modal('hide');
-                            Handler_replyCount() // 댓글 목록 다시 호출
+                            loadJSONData() // 댓글 목록 다시 호출
                         },
                     })
-
                 }
+
+
+                /*------------------------------전역적으로 돌아가는------------------------------*/
+
+                /*댓글 보기*/
+                $(".replyCount").click(() => {loadJSONData()});
+
+
+                /*댓글 추가*/
+                $(".addReply").click(add_Modal);
+                /*댓글 추가 모달 - 저장*/
+                $(".replySave").click(() => {save_Reply()});
 
             })
 		</script>
