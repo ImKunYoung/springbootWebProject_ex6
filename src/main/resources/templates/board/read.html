@@ -81,12 +81,10 @@
 					<span class="badge badge-secondary replyCount">Reply Count [[${dto.replyCount}]]</span>
 				</h5>
 
-
 			</div>
 
 
 			<div class="list-group replyList">
-
 			</div>
 
 		</div>
@@ -114,7 +112,7 @@
                 }
 
                 /*특정한 게시글의 댓글을 처리하는 함수*/
-                const loadJSONDate = () => {
+				const loadJSONData = () => {
                     $.getJSON('/replies/board/'+bno, arr => { // https://mkil.tistory.com/357  참고
 
                         console.log(arr)
@@ -146,14 +144,42 @@
 
                 }
 
-                const Handler_replyCount = () => {
-                    loadJSONDate()
+                export const Handler_replyCount = () => {
+                    loadJSONData()
                 }
 
                 /*전역적으로 돌아가는..*/
-                $(".replyCount").click(
-                    Handler_replyCount
-                ) // end click
+                $(".replyCount").click(Handler_replyCount);
+                $(".replySave").click(handle_replySave);
+
+
+                const handle_replySave = () => {
+
+                    const reply = {
+                        bno: [[${dto.bno}]],
+                        text: $('input[name="replyText"]').val(),
+                        replyer: $('input[name="replyer"]').val(),
+                    }
+
+                    console.log(reply);
+
+                    $.ajax({
+                        url:'/replies/',
+                        method:'post',
+                        data: JSON.stringify(reply),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: data => {
+                            console.log(data);
+                            const newRno = parseInt(data);
+                            alert(newRno + `번 댓글이 등록되었습니다.`)
+                            modal.modal('hide');
+                            Handler_replyCount()
+                        }
+                    })
+
+                }
+
 
             })
 		</script>
@@ -166,6 +192,7 @@
 			<div class="modal-dialog" role="document">
 
 				<div class="modal-content">
+
 
 					<div class="modal-header">
 						<h5 class="modal-title">Modal Title</h5>
@@ -199,6 +226,7 @@
 						<button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">Close</button>
 					</div>
 
+
 				</div>
 
 			</div>
@@ -206,14 +234,14 @@
 		</div>
 
 
-		<!--댓글 추가 모달 처리-->
+		<!--댓글 추가 버튼 처리 (모달창 show)-->
 		<script th:inline="javascript">
             $(document).ready(() => { // Dom 이 완전히 불러와지면 실행
 
                 /*모달 컴포넌트*/
                 const modal = $('.modal');
 
-                /*이벤트 처리*/
+                /*댓글 추가 버튼 - 이벤트 처리*/
                 const handle_AddReply = () => {
                     modal.modal('show');
 
@@ -221,14 +249,11 @@
 					$('input[name="replyText"]').val('');
 					$('input[name="replyer"]').val('');
 
-
                     /*모달 내의 모든 버튼을 안 보이도록*/
 					$(".modal-footer .btn").hide();
                     /*댓글 추가 모달에 필요한 버튼만 show*/
                     $(".replySave, .replyClose").show();
                 }
-
-
 
                 /*addReply 클릭 시 이벤트 처리 함수 호출*/
                 $(".addReply").click(handle_AddReply);
@@ -236,6 +261,13 @@
             })
 		</script>
 
+		<!--댓글 추가 모달창 처리-->
+		<script th:inline="javascript">
+
+
+
+
+		</script>
 
 
 
