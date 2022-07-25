@@ -45,4 +45,16 @@ public class ReplyController {
 
     }
 
+    /*댓글 삭제하기*/
+    @DeleteMapping("/{rno}")
+    public ResponseEntity<String> remove(@PathVariable("rno") Long rno) {
+
+        log.info("RNO: " + rno);
+
+        replyService.remove(rno);
+
+        return new ResponseEntity<>("success", HttpStatus.OK);
+
+    }
+
 }
