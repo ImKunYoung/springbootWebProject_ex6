@@ -90,102 +90,6 @@
 		</div>
 
 
-		<!--댓글 보기 버튼 처리-->
-		<script th:inline="javascript">
-            $(document).ready(() => { // Dom 이 완전히 불러와지면 실행
-
-                const bno = [[${dto.bno}]];
-
-                /*댓글이 추가될 영역*/
-                const listGroup = $(".replyList");
-
-                /*날짜 처리를 위한 함수*/
-                const formatTime = (str) => {
-                    const date = new Date(str);
-
-                    return date.getFullYear() + '/'
-                        + (date.getMonth() + 1) + '/'
-                        + date.getDate() + ' '
-                        + date.getHours() + ':'
-                        + date.getMinutes();
-
-                }
-
-                /*특정한 게시글의 댓글을 처리하는 함수*/
-				const loadJSONData = () => {
-                    $.getJSON('/replies/board/'+bno, arr => { // https://mkil.tistory.com/357  참고
-
-                        console.log(arr)
-
-                        let str = "";
-
-                        $('.replyCount').html("  Reply Count  "+ arr.length);
-
-                        /*array 반복문*/
-                        $.each(arr, (idx, reply) => {
-                            console.log("==========="+reply);
-
-                            str +='<div class="card-body" data-rno="' + reply.rno + '">'
-                                + '<b>' + reply.rno + '</b>';
-
-                            str +='<h5 class="card-title">' + reply.text + '</h5>';
-
-                            str +='<h6 class="card-subtitle mb-2 text-muted">' + reply.replyer + '</h6>';
-
-                            str +='<p class="card-text">' + formatTime(reply.regDate) + '</p>';
-
-                            str +='</div>';
-
-                        })
-
-                        listGroup.html(str);
-
-                    });
-
-                }
-
-				const Handler_replyCount = () => {
-                    loadJSONData()
-                }
-
-                /*전역적으로 돌아가는..*/
-                $(".replyCount").click(Handler_replyCount);
-                $(".replySave").click(() => {handle_replySave()});
-
-
-                const handle_replySave = () => {
-
-                    const reply = {
-                        bno: [[${dto.bno}]],
-                        text: $('input[name="replyText"]').val(),
-                        replyer: $('input[name="replyer"]').val(),
-                    }
-
-                    console.log(reply);
-
-                    $.ajax({
-                        url:'/replies/',
-                        method:'post',
-                        data: JSON.stringify(reply),
-                        contentType: 'application/json; charset=utf-8',
-                        dataType: 'json',
-                        success: data => {
-                            console.log(data);
-                            const newRno = parseInt(data);
-                            alert(newRno + `번 댓글이 등록되었습니다.`)
-                            modal.modal('hide');
-                            Handler_replyCount()
-                        },
-                    })
-
-                }
-
-
-            })
-		</script>
-
-
-
 		<!--댓글 추가 모달-->
 		<div class="modal" tabindex="-1" role="dialog">
 
@@ -234,42 +138,124 @@
 		</div>
 
 
-		<!--댓글 추가 버튼 처리 (모달창 show)-->
+		<!--댓글 보기 버튼 처리-->
 		<script th:inline="javascript">
             $(document).ready(() => { // Dom 이 완전히 불러와지면 실행
 
-                /*모달 컴포넌트*/
-                const modal = $('.modal');
+                const bno = [[${dto.bno}]];
 
-                /*댓글 추가 버튼 - 이벤트 처리*/
-                const handle_AddReply = () => {
-                    modal.modal('show');
+                /*댓글이 추가될 영역*/
+                const listGroup = $(".replyList");
 
-                    /*댓글 입력하는 부분 초기화*/
-					$('input[name="replyText"]').val('');
-					$('input[name="replyer"]').val('');
+                /*날짜 처리를 위한 함수*/
+                const formatTime = (str) => {
+                    const date = new Date(str);
 
-                    /*모달 내의 모든 버튼을 안 보이도록*/
-					$(".modal-footer .btn").hide();
-                    /*댓글 추가 모달에 필요한 버튼만 show*/
-                    $(".replySave, .replyClose").show();
+                    return date.getFullYear() + '/'
+                        + (date.getMonth() + 1) + '/'
+                        + date.getDate() + ' '
+                        + date.getHours() + ':'
+                        + date.getMinutes();
+
                 }
 
-                /*addReply 클릭 시 이벤트 처리 함수 호출*/
-                $(".addReply").click(handle_AddReply);
+
+                /*Reply Count 라벨 이벤트 처리. 전역적으로 돌아가는..*/
+                $(".replyCount").click(() => {Handler_replyCount()});
+
+                /*Reply Count 라벨 이벤트 핸들러*/
+                const Handler_replyCount = () => {loadJSONData()}
+
+                /*댓글 리스트 불러오기*/
+                const loadJSONData = () => {
+                    $.getJSON('/replies/board/'+bno, arr => { // https://mkil.tistory.com/357  참고
+
+                        console.log(arr)
+
+                        let str = "";
+
+                        $('.replyCount').html("  Reply Count  "+ arr.length);
+
+                        /*array 반복문*/
+                        $.each(arr, (idx, reply) => {
+                            console.log("==========="+reply);
+
+                            str +='<div class="card-body" data-rno="' + reply.rno + '">'
+                                + '<b>' + reply.rno + '</b>';
+
+                            str +='<h5 class="card-title">' + reply.text + '</h5>';
+
+                            str +='<h6 class="card-subtitle mb-2 text-muted">' + reply.replyer + '</h6>';
+
+                            str +='<p class="card-text">' + formatTime(reply.regDate) + '</p>';
+
+                            str +='</div>';
+
+                        })
+
+                        listGroup.html(str);
+
+                    });
+                }
+
+
+                /*Add Reply(댓글 추가) 모달 생성*/
+                $(document).ready(() => { // Dom 이 완전히 불러와지면 실행
+
+                    /*댓글 추가 버튼 - 이벤트 처리*/
+                    const handle_AddReply = () => {
+                        $('.modal').modal('show');
+
+                        /*댓글 입력하는 부분 초기화*/
+                        $('input[name="replyText"]').val('');
+                        $('input[name="replyer"]').val('');
+
+                        /*모달 내의 모든 버튼을 안 보이도록*/
+                        $(".modal-footer .btn").hide();
+                        /*댓글 추가 모달에 필요한 버튼만 show*/
+                        $(".replySave, .replyClose").show();
+                    }
+
+                    /*addReply 클릭 시 이벤트 처리 함수 호출*/
+                    $(".addReply").click(handle_AddReply);
+
+                })
+
+                /*댓글 추가 모달 이벤트 처리*/
+                $(".replySave").click(() => {handle_replySave()});
+
+                /*댓글 추가 모달 이벤트 처리*/
+                const handle_replySave = () => {
+
+                    /*reply dto 생성*/
+                    const reply = {
+                        bno: [[${dto.bno}]],
+                        text: $('input[name="replyText"]').val(),
+                        replyer: $('input[name="replyer"]').val(),
+                    }
+
+                    console.log(reply);
+
+                    /*댓글 저장 처리*/
+                    $.ajax({
+                        url:'/replies/',
+                        method:'post',
+                        data: JSON.stringify(reply),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: data => {
+                            console.log(data);
+                            const newRno = parseInt(data);
+                            alert(newRno + `번 댓글이 등록되었습니다.`)
+                            $('.modal').modal('hide');
+                            Handler_replyCount() // 댓글 목록 다시 호출
+                        },
+                    })
+
+                }
 
             })
 		</script>
-
-		<!--댓글 추가 모달창 처리-->
-		<script th:inline="javascript">
-
-
-
-
-		</script>
-
-
 
 
 	</th:block>
