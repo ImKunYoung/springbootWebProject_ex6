@@ -159,15 +159,18 @@
                 $(".replySave").click(() => {save_Reply()});
 
 
-                /*댓글 클릭시*/
+                /*댓글을 클릭한다*/
 				$(".replyList").on("click", ".card-body", ()=> {info_Reply()})
 
+
+				/*댓글 삭제 버튼을 누른다*/
+				$(".replyRemove").on("click", ()=> {remove_Reply()})
 
 				/*-------------------------------모달 생성-------------------------------*/
 
                 /*댓글 추가 모달*/
                 const add_Modal = () => {
-                    $('.modal').modal('show');
+                    $('.modal').show();
 
                     /*입력창 초기화*/
                     $('input[name="replyText"]').val('');
@@ -188,7 +191,7 @@
 					$(".modal-footer .btn").hide();
                     $(".replyRemove, .replyModify, .replyClose").show();
 
-                    $('.modal').modal('show');
+                    $('.modal').show();
 
                 }
                 /*-------------------------------function-------------------------------*/
@@ -251,15 +254,36 @@
                         data: JSON.stringify(reply),
                         contentType: 'application/json; charset=utf-8',
                         dataType: 'json',
+
                         success: data => {
                             console.log(data);
                             const newRno = parseInt(data);
-                            alert(newRno + `번 댓글이 등록되었습니다.`)
-                            $('.modal').modal('hide');
-                            loadJSONData() // 댓글 목록 다시 호출
+                            alert(newRno + "번 댓글이 등록되었습니다.");
+                            $('.modal').hide();
+                            loadJSONData(); // 댓글 목록 다시 호출
                         },
                     })
                 }
+
+
+                /*댓글을 삭제한다*/
+				const remove_Reply = () => {
+                    const rno = $("input[name='rno']").val();
+                    $.ajax({
+						url: '/replies/' + rno,
+						method: 'delete',
+
+						success: result => {
+                            console.log("result: "+result);
+                            if(result === 'success') {
+                                alert("댓글이 삭제되었습니다");
+                                $('.modal').hide();
+                                loadJSONData();
+							}
+
+						}
+					})
+				}
 
             })
 		</script>
