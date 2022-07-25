@@ -156,47 +156,47 @@
                         + date.getDate() + ' '
                         + date.getHours() + ':'
                         + date.getMinutes();
-
                 }
-
-
-                /*Reply Count 라벨 이벤트 처리. 전역적으로 돌아가는..*/
-                $(".replyCount").click(() => {Handler_replyCount()});
-
-                /*Reply Count 라벨 이벤트 핸들러*/
-                const Handler_replyCount = () => {loadJSONData()}
 
                 /*댓글 리스트 불러오기*/
                 const loadJSONData = () => {
                     $.getJSON('/replies/board/'+bno, arr => { // https://mkil.tistory.com/357  참고
-
                         console.log(arr)
+						const Init = () => {
+                            countInit()
+                            createList()
+						}
+						/*댓글 수 초기화*/
+						const countInit = () => {
+                            $('.replyCount').html("  Reply Count  "+ arr.length);
+                        }
+                        /*댓글 리스트 생성*/
+						const createList = () => {
+                            let str = "";
+                            $.each(arr, (idx, reply) => {
+                                console.log("==========="+reply);
 
-                        let str = "";
-
-                        $('.replyCount').html("  Reply Count  "+ arr.length);
-
-                        /*array 반복문*/
-                        $.each(arr, (idx, reply) => {
-                            console.log("==========="+reply);
-
-                            str +='<div class="card-body" data-rno="' + reply.rno + '">'
-                                + '<b>' + reply.rno + '</b>';
-
-                            str +='<h5 class="card-title">' + reply.text + '</h5>';
-
-                            str +='<h6 class="card-subtitle mb-2 text-muted">' + reply.replyer + '</h6>';
-
-                            str +='<p class="card-text">' + formatTime(reply.regDate) + '</p>';
-
-                            str +='</div>';
-
-                        })
-
-                        listGroup.html(str);
-
+                                str +='<div class="card-body" data-rno="'+ reply.rno +'">'
+                                str +='<b>'+ reply.rno +'</b>';
+                                str +='<h5 class="card-title">'+ reply.text +'</h5>';
+                                str +='<h6 class="card-subtitle mb-2 text-muted">'+ reply.replyer +'</h6>';
+                                str +='<p class="card-text">'+ formatTime(reply.regDate) +'</p>';
+                                str +='</div>';
+                            })
+                            listGroup.html(str);
+						}
+                        Init();
                     });
                 }
+
+
+                /*댓글 보기 버튼 처리 ....전역적으로 돌아가는..*/
+                $(".replyCount").click(() => {Handler_replyCount()});
+
+                /*댓글 보기 버튼 처리 */
+                const Handler_replyCount = () => {loadJSONData()}
+
+
 
 
                 /*Add Reply(댓글 추가) 모달 생성*/
