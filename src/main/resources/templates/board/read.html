@@ -144,13 +144,13 @@
 
                 }
 
-                export const Handler_replyCount = () => {
+				const Handler_replyCount = () => {
                     loadJSONData()
                 }
 
                 /*전역적으로 돌아가는..*/
                 $(".replyCount").click(Handler_replyCount);
-                $(".replySave").click(handle_replySave);
+                $(".replySave").click(() => {handle_replySave()});
 
 
                 const handle_replySave = () => {
@@ -175,7 +175,7 @@
                             alert(newRno + `번 댓글이 등록되었습니다.`)
                             modal.modal('hide');
                             Handler_replyCount()
-                        }
+                        },
                     })
 
                 }
