@@ -160,7 +160,7 @@
 
 
                 /*댓글을 클릭한다*/
-				$(".replyList").on("click", ".card-body", ()=> {info_Reply()})
+				$(".replyList").on("click", ".card-body", ()=> {info_Modal()})
 
 
 				/*댓글 삭제 버튼을 누른다*/
@@ -181,9 +181,10 @@
                 }
 
                 /*댓글 정보 모달*/
-                const info_Reply = () => {
-                    const rno = $(this).data("rno");
+                const info_Modal = () => {
+                    const rno = $(this).data("data-rno");
 
+                    console.log($(this).find('.card-title').html())
 					$("input[name='replyText']").val($(this).find('.card-title').html());
 					$("input[name='replyer']").val($(this).find('.card-subtitle').html());
 					$("input[name='rno']").val(rno);
